@@ -1,0 +1,113 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        bool run = true;
+        int z=0;
+        int[] arr = new int[20];
+        int[] y = { 25, 75, 125, 175, 225, 275};
+        int x = 5;
+        int totalProcesses=0;
+        int[] robinarr = new int[10];
+        int[] ax = { 5, 25, 45, 65, 85, 108, 125, 145, 165, 186, 205, 225, 245, 265, 285, 305, 325, 345, 365, 385, 405 };
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {         
+            ThreadStart RoundRobinref = new ThreadStart(RoundRobin);
+            {
+                Thread RoundRobin = new Thread(RoundRobinref);
+                RoundRobin.Start();
+            }
+ 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if(totalProcesses<5)
+            {
+                arr[totalProcesses] = Int16.Parse(textBox1.Text);
+             
+            }
+            else
+            {
+                MessageBox.Show("Amount of processes reached.");
+            }
+            totalProcesses++;
+        }
+ 
+        public void RoundRobin()
+        {
+            double time = (Convert.ToDouble(textBox2.Text)*1000);
+            double w = 1000.00;
+            int t = 2;
+            int times = 0;
+            for (int l = 0; l <= 20; l++)
+            {
+                for (int i = 0; i <= totalProcesses; i++)
+                {            
+                                       
+                    t = robinarr[i];
+                    if (t < arr[i])
+                    {
+                        if (t + 1 < arr[i])
+                        {
+                            times = 2;
+                        }
+                       
+                        for (int k = 1; k <= times; k++)
+                        {
+                            Graphics papier = pictureBox1.CreateGraphics();
+                            SolidBrush myBrush = new SolidBrush(Color.Purple);
+                            papier.FillRectangle(myBrush, new Rectangle(ax[l], y[i], 15, 15));
+                            Thread.Sleep(Convert.ToInt16(time));
+
+                            if (run == false)
+                            {
+                                Thread.Sleep(100000000);
+                            }
+                        }
+                    }
+                    t = t + 2;
+                    robinarr[i] = t;
+                }
+            }
+            
+        }
+
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            run = false;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
