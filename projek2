@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.IO;
+
+namespace WebApplication1
+{
+    public partial class WebForm1 : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+           
+        }
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            string textInFile1 = File.ReadAllText(@"C:\Users\Stiaan Diedericks\Desktop\Backup\Derdejaar\Eerste Semester\ITRW 316\Eksamen\WebApplication1\test1.txt");
+            string textInFile2 = File.ReadAllText(@"C:\Users\Stiaan Diedericks\Desktop\Backup\Derdejaar\Eerste Semester\ITRW 316\Eksamen\WebApplication1\test2.txt");
+            string textInFile3 = File.ReadAllText(@"C:\Users\Stiaan Diedericks\Desktop\Backup\Derdejaar\Eerste Semester\ITRW 316\Eksamen\WebApplication1\test3.txt");
+            string file = (textInFile1.ToString() +" "+ textInFile2.ToString());
+            using (StreamWriter writer = new StreamWriter((@"C:\Users\Stiaan Diedericks\Desktop\Backup\Derdejaar\Eerste Semester\ITRW 316\Eksamen\WebApplication1\test3.txt"), false))
+            {
+                writer.WriteLine(file+" " + TextBox1.Text);
+                writer.Dispose();
+            }
+         
+           
+        }
+
+        protected void TextBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
